@@ -98,7 +98,7 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
 .evcard.flip{animation:flipc .45s ease}
 @keyframes flipc{0%{transform:perspective(900px) rotateY(0)}50%{transform:perspective(900px) rotateY(90deg)}100%{transform:perspective(900px) rotateY(0)}}
 .evcard.big{border-color:var(--accent)}
-.ev-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.ev-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:2px 8px}
 .ev-tag{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
 .evcard.big .ev-tag{color:var(--accent)}
 .ev-count{font-family:var(--mono);font-size:11.5px;color:var(--ink2);white-space:nowrap}
@@ -190,7 +190,9 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
 .tag{font-size:10.5px;font-weight:400;letter-spacing:.04em;padding:0 6px;border-radius:4px;border:1px solid var(--rule);color:var(--muted);white-space:nowrap;line-height:1.7}
 .tag.real{border-color:color-mix(in srgb,var(--up) 45%,var(--rule));color:var(--up)}
 .tag.new{border-color:var(--accent);color:var(--accent)}
+.tag.hot{border-color:var(--down);color:var(--down)}
 .lockhint,.sharehint{margin:0;font-size:12px;color:var(--muted);text-align:center}
+@media (max-width:959px){.sharehint{display:none}}
 .lockhint{padding:10px;border:1px dashed var(--rule);border-radius:12px}
 
 /* ---------- chart pane ---------- */
@@ -211,7 +213,7 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
 .future text{fill:var(--muted);font-size:12px;letter-spacing:.1em}
 .kv{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:12px;overflow:hidden}
 .kv div{background:var(--surface);padding:7px 11px}
-.kv span{display:block;font-size:11px;color:var(--muted)}
+.kv div>span{display:block;font-size:11px;color:var(--muted)}
 .kv b{font-family:var(--mono);font-weight:500;font-size:14px}
 details.older summary{cursor:pointer;font-size:13px;color:var(--ink2)}
 .older-list{margin:6px 0 0;padding:0;list-style:none;font-size:12.5px;color:var(--ink2);display:flex;flex-direction:column;gap:4px}
@@ -305,13 +307,23 @@ tr.me td{font-weight:600}
 .coach-tip small{display:block;margin-top:8px;font-size:12px;color:var(--muted)}
 #confetti{position:fixed;inset:0;z-index:45;pointer-events:none}
 
+.term{border-bottom:1px dashed color-mix(in srgb,currentColor 55%,transparent);cursor:help}
+.term:hover,.term:focus-visible{color:var(--accent);outline:none}
+.pop{position:fixed;z-index:60;max-width:300px;background:var(--ink);color:var(--bg);border-radius:12px;padding:10px 13px;font-size:13.5px;line-height:1.5;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+.pop b{display:block;font-size:14px;margin-bottom:2px}
+.pop small{display:block;margin-top:5px;opacity:.78;font-size:12px}
+.gloss{grid-column:1 / -1;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px}
+.gloss div{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:9px 12px;font-size:13px;color:var(--ink2);line-height:1.5}
+.gloss b{display:block;color:var(--ink);font-size:14px}
+.gloss small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+.a-desc{font-size:12px;color:var(--muted);line-height:1.35}
 /* ---------- desktop ---------- */
 @media (min-width:960px){
   .app{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) auto;padding:0 20px}
   .top{border:1px solid var(--rule);border-top:0;border-radius:0 0 16px 16px;grid-template-columns:auto minmax(0,1fr) auto auto;padding:12px 20px 13px}
   .t-vs{width:190px}
   .icon-btn{display:inline-flex}
-  .content{display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:18px;overflow:hidden;padding:16px 0 0}
+  .content{display:grid;grid-template-columns:minmax(0,1fr) 420px;grid-template-rows:minmax(0,1fr);gap:18px;overflow:hidden;padding:16px 0 0}
   .col-l{display:flex;flex-direction:column;gap:16px;min-height:0}
   .col-r{display:flex;flex-direction:column;min-height:0}
   .app .pane{display:flex}
@@ -319,12 +331,17 @@ tr.me td{font-weight:600}
   #pane-month{flex:none;min-height:0;display:grid!important;grid-template-columns:minmax(0,1fr) 270px;gap:14px;align-items:stretch}
   #pane-chart{flex:1;min-height:0}
   #pane-invest{flex:1;min-height:0;overflow:auto;padding-right:4px}
-  .evcard{min-height:290px}
+  .evcard{min-height:220px}
+  #pane-month{align-items:start}
+  .kv{grid-template-columns:repeat(4,minmax(0,1fr))}
   .tabbar{display:none}
   .toasts{bottom:92px}
   .col-l{overflow:auto}
   .chartbox{min-height:150px}
   .app.ended .mside{display:flex}
+  .app.ended .kv,.app.ended .older{display:none!important}
+  .app.ended .chartbox{min-height:120px}
+  .app.ended .sharecard{gap:6px;padding:14px 16px}
   .actions{background:transparent;border-top:0;padding:12px 0 16px;display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:18px}
   .actions .acts-l{display:flex;gap:8px}
   #next{flex:1}
@@ -380,7 +397,7 @@ tr.me td{font-weight:600}
         <p class="sharehint" id="sharehint"></p>
       </section>
       <section class="pane" id="pane-album" aria-label="图鉴">
-        <div class="mtabs" role="tablist"><button class="mtab al-cards" role="tab" aria-selected="true">知识卡 <span class="mono al-cards-n"></span></button><button class="mtab al-ach" role="tab" aria-selected="false">成就 <span class="mono al-ach-n"></span></button></div>
+        <div class="mtabs" role="tablist"><button class="mtab al-cards" role="tab" aria-selected="true">知识卡 <span class="mono al-cards-n"></span></button><button class="mtab al-ach" role="tab" aria-selected="false">成就 <span class="mono al-ach-n"></span></button><button class="mtab al-gloss" role="tab" aria-selected="false">新手词典</button></div>
         <div class="cardgrid" id="album"></div>
       </section>
     </div>
@@ -402,13 +419,14 @@ tr.me td{font-weight:600}
 </div>
 <div class="toasts" id="toasts" aria-live="polite"></div>
 <div class="overlay" id="overlay" hidden><div class="modal" id="modal" role="dialog" aria-modal="true"></div></div>
+<div class="pop" id="pop" role="tooltip" hidden></div>
 <div class="coach" id="coach" hidden><div class="coach-hole" id="coach-hole"></div><div class="coach-tip" id="coach-tip"></div></div>
 
 <script src="data.js"></script>
 <script>
 const DATA = window.DATA;
 const N = DATA.m.length;
-const START_CASH = 10000, BASE_DEPOSIT = 300, BONUS = 1500, FEE = 0.001, FEE_MIN = 1;
+const START_CASH = 10000, BASE_DEPOSIT = 300, FEE = 0.001, FEE_MIN = 1;
 const RM = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 const idxOf = (y,m) => (y-1928)*12 + (m-1);
 const realYM = s => [1928 + Math.floor(s/12), s%12 + 1];
@@ -427,23 +445,6 @@ const GROUPS = [
   {k:'lev',name:'杠杆',c:'--g-lev'},{k:'fund',name:'股票基金',c:'--g-fund'},{k:'stock',name:'个股',c:'--g-stk'},
 ];
 const EQUITY = new Set(['fund','lev','stock']);
-const SECTORS = {科技:[1.4,.30],互联网:[1.5,.40],汽车:[1.3,.35],医疗:[.8,.30],能源:[1.0,.28],消费:[.7,.20],交通:[1.3,.32],金融:[1.2,.25],工业:[1.1,.25],地产:[1.2,.30]};
-const STOCK_POOL = [
-  ['星辰科技','科技','设计手机芯片，客户遍布全球'],['云帆软件','科技','给企业卖云端办公软件'],['量子游戏','科技','开发手机游戏，靠爆款吃饭'],
-  ['快跑外卖','互联网','外卖平台，还在烧钱抢市场'],['萌宠之家','互联网','网上卖宠物用品，增长很快'],
-  ['极光电动','汽车','电动车新贵，还没有赚过钱'],['天工汽车','汽车','老牌汽油车厂，工人很多'],
-  ['北辰医药','医疗','研发抗癌新药，成败看临床试验'],['康宁医疗','医疗','全国连锁诊所和药房'],
-  ['金穗能源','能源','开采石油和天然气'],['蓝鲸零售','消费','全国连锁超市'],['甜心饮料','消费','百年饮料品牌，年年分红'],
-  ['远航航空','交通','国内第二大航空公司'],['磐石银行','金融','大型商业银行，放贷款赚利差'],['朝晖材料','工业','生产钢铁和建材'],['绿洲地产','地产','盖房子卖房子的开发商'],
-];
-const ARCH = [
-  {k:'star',p:.12,label:'超级明星',alpha:.10,text:'长期大幅跑赢市场。这样的公司很少，事前也几乎认不出来。'},
-  {k:'blue',p:.22,label:'稳健蓝筹',alpha:.02,idio:.6,text:'波动较小、稳稳增长的成熟公司。'},
-  {k:'avg', p:.28,label:'普通公司',alpha:-.01,text:'波动比大盘大，收益却差不多甚至更低。大多数个股都是这样。'},
-  {k:'fade',p:.20,label:'逐渐衰落',alpha:-.08,text:'慢慢失去竞争力，股价长期跑输。很多昔日明星最后都走到这一步。'},
-  {k:'blow',p:.10,label:'暴雷股',alpha:-.02,text:'某个月突然出事，一次跌掉大半，有时直接破产退市。'},
-  {k:'turn',p:.08,label:'困境反转',alpha:0,text:'先跌得惨不忍睹，换了管理层后又强势反弹。能熬过前半段的人很少。'},
-];
 const EVENTS = [
   [1929,1932,'大萧条，股市最多跌去八成以上'],[1937,1938,'1937–38 年经济衰退'],[1939,1945,'第二次世界大战'],
   [1946,1948,'战后高通胀'],[1950,1953,'朝鲜战争'],[1962,1962,'1962 年股市闪崩'],[1971,1971,'美元与黄金脱钩，金价开始自由浮动'],[1973,1974,'石油危机，大盘跌近一半'],
@@ -451,14 +452,20 @@ const EVENTS = [
   [1995,1999,'互联网大牛市'],[2000,2002,'互联网泡沫破裂，大盘跌近一半'],[2007,2009,'全球金融危机，大盘跌超过一半'],
   [2020,2020,'新冠疫情，五周内跌三成多'],[2022,2022,'加息熊市，股票债券一起跌'],[2023,2024,'AI 热潮推动大盘创新高'],[2025,2025,'关税冲击引发急跌后反弹'],
 ];
-const UNLOCKS = [{t:12, ids:['gold']}, {t:24, stocks:[0,1]}, {t:36, ids:['tech','div','em'], stocks:[2,3,4,5]}, {t:48, ids:['lev']}];
+const UNLOCKS = [{t:12, ids:['gold']}, {t:24, ids:['tech','div','em']}, {t:36, ids:['lev']}];
+const MOON_NAMES = [['火箭科技','做可回收火箭，还没有一次发射成功'],['量子跃迁','号称要造量子电脑，产品还没问世'],['闪电生物','押注一款减肥新药，成败全看临床试验'],['星矿资源','计划去小行星挖矿，目前只有概念'],['暴风电竞','靠网红直播起家，粉丝热情说变就变']];
+const MOON_FATE = {
+  moon:{label:'一飞冲天', text:'这次它真的起飞了。但现实中这种结局很少，而且事前几乎认不出来。'},
+  zero:{label:'破产归零', text:'公司没撑过去，股票变成废纸。很多热门概念股最后都是这个结局。'},
+  wild:{label:'坐过山车', text:'大起大落，最后大多是亏的。剧烈波动本身就会吃掉收益。'},
+};
 
 /* ---------- knowledge cards ---------- */
 const CARDS = [
   {id:'deposit', t:'每月存钱，比挑时机更重要', b:()=>'你每个月都会多出 300 美元。老王把每一笔都立刻买进标普 500，从不看盘，这叫定投。长期来看，持续投入多少本金，往往比什么时候买更能决定你最后有多少钱。'},
   {id:'inflation', t:'通胀：钱放着会变少', b:()=>`这两年物价涨了 ${pctP(S.cpi-1,1)}。一开始的 1 万美元，现在只能买到当初约 ${money(10000/S.cpi)} 的东西。现金很安全，但它的敌人是时间。`,
     quiz:{q:'如果物价每年涨 3%，24 年后物价大约是现在的几倍？', o:['1.7 倍','2 倍','3 倍'], a:1, ex:'1.03 的 24 次方约等于 2.03。每年 3% 听起来不多，24 年就能让物价翻一倍。'}},
-  {id:'compound', t:'复利：收益也会生收益', b:()=>{const sp=A('spy'),g=sp.price/sp.p0;return `这 ${Math.round(S.t/12)} 年，标普 500 里的每 1 美元变成了 $${g.toFixed(2)}（年化 ${pctP(Math.pow(g,12/S.t)-1,1)}）。赚到的钱继续产生收益，时间越长，曲线越陡，所以越早开始越好。`},
+  {id:'compound', t:'复利：收益也会生收益', b:()=>{const sp=A('spy'),g=sp.price/sp.p0;return `这 ${Math.round(S.t/12)} 年，标普 500 里的每 1 美元变成了 $${g.toFixed(2)}，相当于平均每年赚 ${pctP(Math.pow(g,12/S.t)-1,1)}（这就叫年化）。赚到的钱继续产生收益，时间越长，曲线越陡，所以越早开始越好。`},
     quiz:{q:'每年赚 7%，本金大约多少年能翻倍？', o:['5 年','10 年','20 年'], a:1, ex:'有个「72 法则」：72 ÷ 年收益率 ≈ 翻倍年数。72 ÷ 7 ≈ 10 年。'}},
   {id:'cashdrag', t:'一直在等更好的时机', b:()=>`你大部分钱还放在现金里，老王已经领先你 ${pctP(S.lazy/total()-1,0)}。等更便宜的时候再买听起来合理，但没人知道底部在哪。历史上大多数时候，早点投入比等待更划算。`},
   {id:'drawdown', t:'回撤：从最高点跌了多少', b:()=>`你的资产比最高点低了 ${pctP(1-S.nav/Math.max(...S.hist.map(h=>h.nav)),0)}（已扣除存钱的影响）。回撤是衡量风险最直观的方法。想一想：如果这是真钱，这个跌幅你睡得着吗？能承受多大回撤，决定了你适合放多少钱在股票里。`,
@@ -476,10 +483,11 @@ const CARDS = [
   {id:'lever', t:'杠杆：双刃剑', b:()=>'3 倍杠杆 ETF 追求大盘 3 倍的涨跌。涨的时候很爽，跌的时候同样是 3 倍，而且在来回震荡的市场里会被慢慢磨损。它是短线交易工具，不适合长期持有。',
     quiz:{q:'如果大盘很快跌了 34%，3 倍杠杆 ETF 会怎样？', o:['跌 34%','跌约 70%','几乎归零'], a:2, ex:'34% × 3 = 102%，理论上会亏光。历史上确实有杠杆产品在暴跌中清盘。'}},
   {id:'gold', t:'黄金：不生利息的避险资产', b:()=>'黄金没有利息和分红，长期回报通常不如股票，但在危机和高通胀时常常逆势上涨。有趣的历史：1934 到 1971 年，官方金价基本固定在每盎司 35 美元；1933 到 1974 年，美国人私人持有黄金甚至是违法的（游戏里可以买）。'},
-  {id:'emergency', t:'应急金', b:ctx=>`这笔 ${money(ctx.amt)} 的支出，你的现金不够，只好卖掉部分投资，还付了手续费。如果正好碰上股市大跌，就等于被迫低价卖出。所以投资之前，先留好 3 到 6 个月生活费作为应急金。`},
+  {id:'rebound', t:'暴跌之后的大反弹', b:ctx=>`上个月大盘跌了 ${pctP(-ctx.d,1)}，这个月又涨了 ${pctP(ctx.u,1)}。历史上涨得最猛的月份，常常紧跟在跌得最惨的月份后面。恐慌卖出的人，往往也会一起错过反弹。`},
   {id:'rumor', t:'小道消息', b:ctx=>(ctx.win?'这次消息居然是真的。但别被一次成功骗了：':'传闻被否认，股价应声大跌。')+'真正的内幕消息轮不到普通人，而且利用内幕消息交易在很多国家是违法的。大多数“稳赚”的消息，最后都是别人想让你接盘。'},
   {id:'diverse', t:'分散投资', b:ctx=>`你现在同时持有 ${ctx.n} 种资产。它们不会同涨同跌，某一个出事时，其他的能帮你撑住。分散是投资里少数几乎“免费”的好处。`},
-  {id:'earnings', t:'财报季', b:ctx=>`${ctx.name} 公布了财报，股价上个月${ctx.r>=0?'涨':'跌'}了 ${pctP(Math.abs(ctx.r),0)}。股价反映的是市场的预期：业绩好但不如预期，股价也可能跌。短期波动很难预测，长期还是看公司能不能持续赚钱。`},
+  {id:'hype', t:'投资还是赌博？', b:()=>`${A('moon').name}这种超级波动股，一个月涨跌三四成很正常。它可能翻十倍，也可能归零。大起大落本身就会吃掉收益：跌 50% 要涨 100% 才能回本。可以拿一小部分钱体验，但别把身家押上去。`,
+    quiz:{q:'一只股票先涨 50%，再跌 50%，最后是赚还是亏？', o:['不赚不亏','亏 25%','赚 25%'], a:1, ex:'100 涨 50% 变 150，再跌 50% 变 75，亏了 25%。波动越大，这种“磨损”越厉害。'}},
 ];
 const CARD = Object.fromEntries(CARDS.map((c,i)=>[c.id,{...c,n:i+1}]));
 const ACHS = [
@@ -493,7 +501,7 @@ const ACHS = [
   {id:'quiz',t:'学霸',d:'一局答对 4 道测验题'},
   {id:'resist',t:'不听小道消息',d:'拒绝所有小道消息'},
   {id:'double',t:'翻倍',d:'最终资产达到累计投入本金的 2 倍'},
-  {id:'survivor',t:'踩雷幸存',d:'持有的个股暴雷或退市，最后仍跑赢老王'},
+  {id:'survivor',t:'踩雷幸存',d:'持有的超级波动股归零，最后仍跑赢老王'},
   {id:'lever',t:'杠杆之痛',d:'3 倍杠杆持仓一度亏损超过 50%'},
 ];
 const MISSIONS = [
@@ -513,6 +521,62 @@ const LW = {
   boom:['我什么都没做，又涨了。'],
   calm:['每个月买，买完就忘。','时间是我的朋友。','不懂的东西我不碰。'],
 };
+
+/* ---------- glossary for beginners ---------- */
+const GLOSS = {
+  annual:{t:'年化（年化收益）', d:'把一整段时间赚的钱，换算成“平均每年赚多少”。游戏里会把你每个月存进去的钱也算进去，所以最后钱越多，这个数字越高。', e:'例：10 年一共翻了一倍，年化大约是 7%。'},
+  etf:{t:'ETF / 基金', d:'把很多股票或债券打包成一份来卖。买一份，就等于同时买了里面所有东西的一小块。', e:'好处是一次就分散了风险，费用也低。'},
+  spy:{t:'标普 500', d:'美国最大的 500 家公司组成的指数。买标普 500 ETF，就等于一次买下这 500 家公司的一小块。', e:'很多人说的“买大盘”“买指数”，通常就是指它。'},
+  market:{t:'大盘', d:'整个股市的整体表现。游戏里用标普 500 代表大盘。'},
+  bond:{t:'国债', d:'借钱给政府，政府按时付利息、到期还钱。通常比股票稳，但利率上升时，旧债券的价格会下跌。'},
+  rate:{t:'利率', d:'借钱的价格。利率上升时，新发的债券利息更高，旧债券就不值钱了，股票也常常受压。'},
+  equity:{t:'股票类资产', d:'游戏里股票基金、个股和杠杆 ETF 的统称。长期赚得多，但短期涨跌也大。'},
+  stock:{t:'个股', d:'单独一家公司的股票。可能大涨，也可能暴跌甚至归零。'},
+  moon:{t:'超级波动股', d:'游戏里那只热门概念股：一个月涨跌三四成很常见，可能翻十倍，也可能破产归零。更像赌博，不像投资。'},
+  dd:{t:'回撤', d:'从最高点跌下来了多少，是衡量风险最直观的数字。', e:'例：从 $100 跌到 $70，回撤是 30%。'},
+  fee:{t:'手续费', d:'每次买卖付给券商的钱。游戏里是成交金额的 0.1%，最低 $1（自动定投免手续费）。买卖越频繁，付得越多。'},
+  dca:{t:'定投', d:'每个月固定投入一笔钱，不管涨跌都买。老王就是这样做的。', e:'好处是不用猜时机，跌的时候还能买到更便宜的。'},
+  inflation:{t:'通胀', d:'物价慢慢变贵，同样的钱能买到的东西变少。', e:'例：每年通胀 3%，24 年后物价大约翻一倍。'},
+  real:{t:'扣通胀后', d:'把物价上涨的影响去掉，看这笔钱相当于开局时能买多少东西。'},
+  bear:{t:'熊市', d:'大盘从最高点下跌超过 20%。反过来，持续上涨的时期叫牛市。'},
+  lev:{t:'杠杆', d:'借钱放大涨跌。3 倍杠杆：大盘涨 1%，它涨约 3%；大盘跌 1%，它也跌约 3%。'},
+  diverse:{t:'分散投资', d:'把钱分到不同的东西上。某一样出事时，其他的还能撑住。'},
+  delist:{t:'退市', d:'股票不能再在交易所买卖了，通常是因为公司破产。持有的股票往往直接归零。'},
+  gold:{t:'黄金', d:'不产生利息的贵金属，常被当作避险工具：危机或高通胀时，常常逆势上涨。'},
+  mv:{t:'市值', d:'你手上的东西，按现在的价格算值多少钱。'},
+  cost:{t:'成本', d:'你当初买它一共花了多少钱。'},
+  pl:{t:'浮动盈亏', d:'现在的市值比成本多（赚）还是少（亏）。还没卖出之前，都只是“纸面上”的赚亏。'},
+  grade:{t:'评级', d:'看你平均每年比老王多赚还是少赚：多 2% 以上是 S，打平或多一点是 A，少不到 1.5% 是 B，少不到 4% 是 C，再多就是 D。'},
+};
+const TERMS = [['股票类资产','equity'],['标普 500','spy'],['标普500','spy'],['年化','annual'],['ETF','etf'],['国债','bond'],['回撤','dd'],['手续费','fee'],['定投','dca'],['通胀','inflation'],['熊市','bear'],['杠杆','lev'],['大盘','market'],['分散','diverse'],['超级波动股','moon'],['个股','stock'],['退市','delist'],['利率','rate'],['黄金','gold']];
+const term = (k, text) => `<span class="term" data-term="${k}" tabindex="0" role="button">${text}</span>`;
+function linkTerms(txt, max=4){
+  let s = esc(txt); const used = new Set(), ph = [];
+  for(const [w,k] of TERMS){
+    if(ph.length>=max || used.has(k)) continue;
+    const i = s.indexOf(w); if(i<0) continue;
+    used.add(k); ph.push(term(k, w));
+    s = s.slice(0,i) + '\u0001' + (ph.length-1) + '\u0002' + s.slice(i+w.length);
+  }
+  return s.replace(/\u0001(\d+)\u0002/g, (_,j)=>ph[+j]);
+}
+function showPop(el){
+  const g = GLOSS[el.dataset.term]; if(!g) return;
+  const pop = $('#pop');
+  pop.innerHTML = `<b>${esc(g.t)}</b>${esc(g.d)}${g.e?`<small>${esc(g.e)}</small>`:''}`;
+  pop.hidden = false;
+  const r = el.getBoundingClientRect(), pw = Math.min(300, innerWidth-24);
+  pop.style.maxWidth = pw+'px';
+  pop.style.left = Math.min(Math.max(12, r.left + r.width/2 - pw/2), innerWidth - pw - 12) + 'px';
+  const ph = pop.offsetHeight; let top = r.bottom + 8; if(top + ph > innerHeight - 8) top = Math.max(8, r.top - ph - 8);
+  pop.style.top = top + 'px';
+}
+document.addEventListener('click', e=>{
+  const t = e.target.closest('.term');
+  if(t){ e.preventDefault(); e.stopPropagation(); showPop(t); return }
+  if(!e.target.closest('#pop')) $('#pop').hidden = true;
+}, true);
+document.addEventListener('keydown', e=>{ const t = e.target.closest && e.target.closest('.term'); if(t && (e.key==='Enter'||e.key===' ')){ e.preventDefault(); showPop(t) } });
 
 /* ---------- utils ---------- */
 function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
@@ -537,6 +601,7 @@ function saveMeta(){ try{ localStorage.setItem(META_KEY, JSON.stringify(META)) }
 /* ---------- state ---------- */
 let S = null, tab = 'month', albumTab = 'cards', ffTimer = null, shownTotal = null, lastEvRef = null, flipNext = false;
 const A = id => S.assets.find(a=>a.id===id);
+const A_last = arr => arr[arr.length-1];
 
 function newGame(modeKey, seed){
   seed = seed ?? Math.floor(Math.random()*2**31);
@@ -557,43 +622,26 @@ function newGame(modeKey, seed){
   ];
   const em = assets.find(a=>a.id==='em');
   for(let t=6;t<len;t++) if(r()<.005){ em.ret[t] = -.18 - r()*.12; em.news[t] = {text:'新兴市场爆发货币危机，外资疯狂撤离', tone:'down', kind:'基金'} }
-  const pool = STOCK_POOL.map(x=>x).sort(()=>r()-.5).slice(0,6);
-  for(const [name, sector, desc] of pool){
-    let u = r(), ar = ARCH[0]; for(const a of ARCH){ if(u<a.p){ar=a;break} u-=a.p }
-    const [beta, idio0] = SECTORS[sector], idio = idio0*(ar.idio||1);
-    const off = Math.floor(r()*3), crash = ar.k==='blow' ? 12 + Math.floor(r()*(len-20)) : -1;
-    const delist = crash>=0 && r()<.4 ? crash + 1 + Math.floor(r()*3) : -1;
-    const news = {}, ret = [];
-    for(let t=0;t<len;t++){
-      let alpha = ar.alpha;
-      if(ar.k==='turn') alpha = t < len/2 ? -.18 : .24;
-      let x = beta*M(t) + alpha/12 - (beta-1)*.003 + idio/Math.sqrt(12)*gauss(r);
-      if(t>0 && t%3===off){
-        const bias = {star:.01,fade:-.01,turn:t<len/2?-.01:.015}[ar.k]||0, j = .05*gauss(r) + bias;
-        x += j;
-        if(Math.abs(j)>=.04) news[t] = {text:`${name}财报${j>0?'超出':'不及'}预期`, tone:j>0?'up':'down', kind:'个股', earn:true};
-      }
-      if(!news[t]){
-        const e = r();
-        if(e<.012){ x += .1+r()*.15; news[t] = {text:`${name}发布重磅新产品，市场反应热烈`, tone:'up', kind:'个股'} }
-        else if(e<.022){ x -= .1+r()*.15; news[t] = {text:`${name}卷入诉讼，可能面临巨额罚款`, tone:'down', kind:'个股'} }
-        else if(e<.03){ x -= .06+r()*.1; news[t] = {text:`${name}CEO 突然辞职`, tone:'down', kind:'个股'} }
-      }
-      if(ar.k==='turn' && t===Math.floor(len/2)) news[t] = {text:`${name}新任 CEO 上任，宣布大刀阔斧改革`, tone:'up', kind:'个股'};
-      if(t===crash){ x = -.55 - r()*.35; news[t] = {text:`${name}被曝财务造假`, tone:'down', kind:'个股', blow:true} }
-      if(t===delist){ x = -1; news[t] = {text:`${name}宣布破产，股票退市`, tone:'down', kind:'个股', blow:true} }
-      ret.push(t===delist ? -1 : Math.max(-.95, x));
-    }
-    const p0 = Math.round((8 + r()*140)*100)/100;
-    assets.push(mk({id:'s_'+name, name, group:'stock', tag:sector, sector, desc, p0, arch:ar.k, delistAt:delist}, ret));
-    assets[assets.length-1].news = news;
+  const [mname, mdesc] = MOON_NAMES[Math.floor(r()*MOON_NAMES.length)];
+  const fu = r(), fate = fu < .25 ? 'moon' : fu < .5 ? 'zero' : 'wild';
+  const crashAt = fate==='zero' ? 18 + Math.floor(r()*(len-24)) : -1;
+  const mnews = {}, mret = [];
+  for(let t=0;t<len;t++){
+    const alpha = fate==='moon' ? .45 : fate==='zero' ? -.15 : -.08;
+    let x = 2*M(t) + alpha/12 - .005 + .8/Math.sqrt(12)*gauss(r);
+    const j = r(); if(j < .05) x += .3 + r()*.5; else if(j < .10) x -= .25 + r()*.3;
+    x = t===crashAt ? -1 : Math.max(-.85, Math.min(2.5, x));
+    if(t===crashAt) mnews[t] = {text:`${mname}宣布破产，股票退市`, tone:'down', kind:'妖股', blow:true};
+    else if(x >= .25) mnews[t] = {text:`${mname}单月暴涨，社交媒体一片沸腾`, tone:'up', kind:'妖股'};
+    else if(x <= -.25) mnews[t] = {text:`${mname}股价崩跌，散户哀嚎`, tone:'down', kind:'妖股'};
+    mret.push(x);
   }
+  assets.push(mk({id:'moon', name:mname, group:'stock', tag:'超级波动', desc:mdesc, p0:Math.round((3 + r()*12)*100)/100, arch:fate, delistAt:crashAt}, mret));
+  A_last(assets).news = mnews;
   const life = [];
   const slot = (a,b) => a + Math.floor(r()*(b-a));
-  const nExp = len>=120 ? 3 : 2, nRum = len>=120 ? 2 : 1;
-  for(let i=0;i<nExp;i++) life.push({t:slot(8+i*Math.floor(len/nExp), (i+1)*Math.floor(len/nExp)-2), type:'expense', amt:[1500,2000,2500,3000,4000][Math.floor(r()*5)], what:['车坏了要大修','家里的冷气坏了，要换新的','看牙医做根管治疗','家人住院，需要帮忙付医药费','手机和电脑同时坏了'][Math.floor(r()*5)]});
-  for(let i=0;i<nRum;i++) life.push({t:slot(10+i*Math.floor(len/nRum), (i+1)*Math.floor(len/nRum)-3), type:'rumor', stock:assets[7+Math.floor(r()*6)].id, win:r()<.25});
-  for(const t of [30,66,102]) if(t<len) life.push({t:t+Math.floor(r()*6), type:'raise'});
+  const nRum = len>=120 ? 2 : 1;
+  for(let i=0;i<nRum;i++) life.push({t:slot(8+i*Math.floor(len/nRum), (i+1)*Math.floor(len/nRum)-3), type:'rumor', stock:'moon', win:r()<.3});
   S = {
     v:3, seed, mode:modeKey, len, s0, assets, life, t:0,
     cash:START_CASH, hold:{}, auto:'', autoMonths:0, deposit:BASE_DEPOSIT,
@@ -606,19 +654,16 @@ function newGame(modeKey, seed){
   postNewGame();
 }
 function postNewGame(){
-  const k = S.len/120, stocks = S.assets.filter(a=>a.group==='stock');
-  for(const a of S.assets) a.unlockT = ['spy','bond'].includes(a.id) ? 0 : 9999;
-  for(const u of UNLOCKS){
-    const t = Math.round(u.t*k);
-    for(const id of (u.ids||[])) A(id).unlockT = t;
-    for(const i of (u.stocks||[])) if(stocks[i]) stocks[i].unlockT = t;
-  }
-  Object.assign(S.f, {bearStartT:-1, lastEqSellT:-99, autoStreak:0, maxLead:0, dip20:false, lastConfNav:1, lastBigT:-99});
+  const k = S.len/120;
+  for(const a of S.assets) a.unlockT = ['spy','bond','moon'].includes(a.id) ? 0 : 9999;
+  for(const u of UNLOCKS){ const t = Math.round(u.t*k); for(const id of u.ids) A(id).unlockT = t }
+  Object.assign(S.f, {bearStartT:-1, lastEqSellT:-99, autoStreak:0, maxLead:0, dip20:false, lastConfNav:1, lastBigT:-99, lastPopT:-99, infl:false, rate:false, goldRush:false});
   const ids = MISSIONS.map(m=>m.id).sort(()=>Math.random()-.5).slice(0,3);
   S.missions = ids; S.mdone = []; S.mfail = [];
   S.lw = '每个月买，买完就忘。';
   S.evq = [welcomeEv()]; S.evi = 0;
   S.result = null;
+  S.flows = new Array(S.len+1).fill(0); S.flows[0] = START_CASH;
   shownTotal = null; lastEvRef = null;
 }
 
@@ -642,8 +687,9 @@ function doTrade(id, side, amt, opt={}){
   const a = A(id); if(!a || a.delisted || amt < 1) return null;
   const h = H(id);
   if(side==='buy'){
-    let fee = Math.max(FEE_MIN, amt*FEE);
-    if(amt + fee > S.cash){ amt = S.cash/(1+FEE); fee = Math.max(FEE_MIN, amt*FEE); amt = S.cash - fee }
+    const feeOf = x => opt.auto ? 0 : Math.max(FEE_MIN, x*FEE);
+    let fee = feeOf(amt);
+    if(amt + fee > S.cash){ amt = S.cash/(1+FEE); fee = feeOf(amt); amt = S.cash - fee }
     if(amt < 1) return null;
     h.sh += amt/a.price; h.cost += amt; S.cash -= amt + fee;
     S.fees += fee; if(!opt.auto) S.trades++; h.traded = true;
@@ -672,6 +718,7 @@ function userTrade(id, side, amt){
   if(isEq && side==='buy' && S.t>=12 && ret12('spy') >= .2 && res.amt >= .15*T0) cands.push(['fomo']);
   if(id==='lev' && side==='buy') cands.push(['lever']);
   if(id==='gold' && side==='buy') cands.push(['gold']);
+  if(id==='moon' && side==='buy') cands.push(['hype']);
   cands.push(...portfolioCards());
   if(S.trades >= 15) cands.push(['fees']);
   queueCards(cands, 1);
@@ -684,19 +731,6 @@ function portfolioCards(){
   const n = S.assets.filter(a=>val(a.id)/T >= .05).length + (S.cash/T >= .05 ? 1 : 0);
   if(n >= 5){ S.f.diverse = true; out.push(['diverse',{n}]) }
   return out;
-}
-
-function withdraw(amt){
-  let forced = false;
-  if(S.cash >= amt){ S.cash -= amt }
-  else {
-    let need = amt - S.cash; S.cash = 0; forced = true;
-    const held = S.assets.filter(a=>val(a.id)>0.5), V = held.reduce((s,a)=>s+val(a.id),0);
-    for(const a of held){ const x = Math.min(val(a.id), need*val(a.id)/V*(1+FEE) + FEE_MIN); doTrade(a.id,'sell',x,{forced:true}) }
-    S.cash = Math.max(0, S.cash - need);
-  }
-  S.lazy = Math.max(0, S.lazy - amt); S.cashOnly = Math.max(0, S.cashOnly - amt);
-  return forced;
 }
 
 /* ---------- month step ---------- */
@@ -716,8 +750,7 @@ function stepMonth(){
   S.lazy *= 1 + DATA.m[s]; S.cashOnly *= 1 + DATA.c[s]; S.cpi *= 1 + DATA.i[s];
   S.t++;
   const news = [], cands = [], evs = [];
-  const r = DATA.m[s], dd = ddOf(spy);
-  const P = Math.abs(r)*100;
+  const r = DATA.m[s], dd = ddOf(spy), P = Math.abs(r)*100;
   if(r >= .08) news.push({kind:'市场', tone:'up', text:'股市大涨，标普 500 单月上涨', r, pri:P});
   else if(r >= .04) news.push({kind:'市场', tone:'up', text:'股市走强，标普 500 上涨', r, pri:P});
   else if(r <= -.08) news.push({kind:'市场', tone:'down', text:'股市暴跌，恐慌情绪蔓延，标普 500', r, pri:P});
@@ -726,18 +759,18 @@ function stepMonth(){
   let panicEv = false;
   if(!S.f.bear && dd >= .2){
     S.f.bear = true; S.f.bearOn = true; S.f.bearPeak = Math.max(...spy.hist); S.f.bearPeakT = spy.hist.indexOf(S.f.bearPeak); S.f.bearStartT = S.t;
-    const eqw = eqValue()/(total()||1); S.f.eqAtBear = eqw;
+    S.f.eqAtBear = eqValue()/(total()||1);
     news.push({kind:'市场', tone:'down', text:'大盘较高点已下跌超过 20%，正式进入熊市', pri:90}); cands.push(['bear']);
-    if(eqw >= .2 && !S.f.panicAsked){ S.f.panicAsked = true; panicEv = true }
+    if(!S.f.panicAsked){ S.f.panicAsked = true; panicEv = true }
   }
   if(S.f.bearOn && spy.price >= S.f.bearPeak && S.t - S.f.bearPeakT > 3){ S.f.bearOn = false; S.f.recovered = true; news.push({kind:'市场', tone:'up', text:'大盘收复失地，重回之前的高点', pri:80}); cands.push(['recovery']) }
-  let euphEv = false;
+  let c12 = null;
   if(S.t >= 12){
-    let c12 = 1; for(let k=s-11;k<=s;k++) c12 *= 1 + DATA.i[k];
-    if(c12-1 >= .07 && S.t%6===0) news.push({kind:'经济', tone:'down', text:`物价飞涨：过去 12 个月通胀达 ${pctP(c12-1,1)}`, pri:6});
-    if(c12-1 <= -.03 && S.t%6===0) news.push({kind:'经济', tone:'down', text:`物价持续下跌，通缩阴影笼罩（过去 12 个月 ${pct(c12-1,1)}）`, pri:6});
-    if(ret12('spy') >= .25 && !S.f.euphAsked){ S.f.euphAsked = true; euphEv = true }
+    c12 = 1; for(let k=s-11;k<=s;k++) c12 *= 1 + DATA.i[k]; c12 -= 1;
+    if(c12 >= .07 && S.t%6===0) news.push({kind:'经济', tone:'down', text:`物价飞涨：过去 12 个月通胀达 ${pctP(c12,1)}`, pri:6});
+    if(c12 <= -.03 && S.t%6===0) news.push({kind:'经济', tone:'down', text:`物价持续下跌，通缩阴影笼罩（过去 12 个月 ${pct(c12,1)}）`, pri:6});
   }
+  if(t > 0 && DATA.m[s-1] <= -.06 && r >= .05) cands.push(['rebound',{d:DATA.m[s-1], u:r}]);
   const br = A('bond').ret[t], gr = A('gold').ret[t], lr = A('lev').ret[t];
   if(br <= -.03) news.push({kind:'债券', tone:'down', text:'利率急升，国债价格下跌', r:br, pri:Math.abs(br)*80});
   if(br >= .04) news.push({kind:'债券', tone:'up', text:'利率下降，国债价格上涨', r:br, pri:Math.abs(br)*80});
@@ -745,22 +778,15 @@ function stepMonth(){
   if(lr <= -.3) news.push({kind:'基金', tone:'down', text:'3 倍杠杆 ETF 单月暴跌', r:lr, pri:Math.abs(lr)*40});
   for(const a of S.assets){
     const n = a.news[t]; if(!n) continue;
-    if(!unlocked(a) && !heldBefore.has(a.id)) continue;
     const held = heldBefore.has(a.id);
-    news.push({kind:n.kind, tone:n.tone, text:n.text, r:a.ret[t], id:a.id, pri: n.blow&&held ? 95 : Math.abs(a.ret[t])*(held?90:40)});
-    if(n.earn && held) cands.push(['earnings',{name:a.name, r:a.ret[t]}]);
+    if(!unlocked(a) && !held) continue;
+    news.push({kind:n.kind, tone:n.tone, text:n.text, r:a.ret[t], id:a.id, pri: n.blow&&held ? 95 : Math.abs(a.ret[t])*(held?60:25)});
     if(n.blow && held) S.f.blowHeld = true;
     if(t===a.delistAt) cands.push(['delist',{name:a.name}]);
   }
   const rum = S.life.find(e=>e.type==='rumor' && e.t===t);
-  if(rum){ const a = A(rum.stock); news.push({kind:'个股', tone:rum.win?'up':'down', text: rum.win ? `${a.name}证实被收购，股价飙升` : `${a.name}否认被收购传闻，股价大跌`, r:a.ret[t], id:a.id, pri:85}); cands.push(['rumor',{win:rum.win}]); const d = S.decisions.find(d=>d.rumor===rum); if(d) d.outcome = rum.win ? '传闻成真，股价飙升' : '传闻被否认，股价大跌' }
-  S.cash += S.deposit; S.lazy += S.deposit; S.cashOnly += S.deposit; S.contributed += S.deposit;
-  if((S.t)%12===0){ S.cash += BONUS; S.lazy += BONUS; S.cashOnly += BONUS; S.contributed += BONUS; news.push({kind:'生活', tone:'up', text:`年终奖 ${money(BONUS)} 到账`, pri:3}) }
-  for(const e of S.life.filter(e=>e.t===S.t)){
-    if(e.type==='raise'){ S.deposit += 50; news.push({kind:'生活', tone:'up', text:`你升职加薪了，每月可存的钱增加到 ${money(S.deposit)}`, pri:4}) }
-    if(e.type==='expense'){ const forced = withdraw(e.amt); news.push({kind:'生活', tone:'down', text:`${e.what}，花了 ${money(e.amt)}`, pri:7}); evs.push(evExpense(e, forced)); if(forced) cands.push(['emergency',{amt:e.amt}]) }
-    if(e.type==='rumor'){ const ev = evRumor(e); if(ev) evs.push(ev) }
-  }
+  if(rum){ const a = A(rum.stock); news.push({kind:'妖股', tone:rum.win?'up':'down', text: rum.win ? `${a.name}证实被收购，股价飙升` : `${a.name}否认被收购传闻，股价大跌`, r:a.ret[t], id:a.id, pri:85}); cands.push(['rumor',{win:rum.win}]); const d = S.decisions.find(d=>d.rumor===rum); if(d) d.outcome = rum.win ? '传闻成真，股价飙升' : '传闻被否认，股价大跌' }
+  S.cash += S.deposit; S.lazy += S.deposit; S.cashOnly += S.deposit; S.contributed += S.deposit; S.flows[S.t] += S.deposit;
   if(S.auto){ const a = A(S.auto); if(a && !a.delisted){ const res = doTrade(S.auto,'buy',S.deposit,{auto:true}); if(res){ S.autoMonths++; S.f.autoStreak++ } } else { S.auto = ''; S.f.autoStreak = 0 } }
   const lh = S.hold.lev; if(lh && lh.cost > 0){ S.f.leverWorst = Math.min(S.f.leverWorst, val('lev')/lh.cost - 1) }
   if(S.t===3) cands.push(['deposit']);
@@ -768,16 +794,25 @@ function stepMonth(){
   if(S.t===(S.len>=120?60:48)) cands.push(['compound']);
   if(S.t>=18 && S.t<=40 && S.cash/total() >= .7 && S.lazy > total()*1.05) cands.push(['cashdrag']);
   if(1 - S.nav/Math.max(...S.hist.map(h=>h.nav), S.nav) >= .15) cands.push(['drawdown']);
-  for(const a of S.assets) if(a.group==='stock' && !a.delisted && val(a.id) > 1 && ddOf(a) >= .5){ cands.push(['stockcrash',{name:a.name, dd:ddOf(a)}]); break }
+  { const m = A('moon'); if(!m.delisted && val('moon') > 1 && ddOf(m) >= .5) cands.push(['stockcrash',{name:m.name, dd:ddOf(m)}]) }
   if(r <= -.05 && br >= 0) cands.push(['bond']);
   cands.push(...portfolioCards());
   S.hist.push({you:total(), lazy:S.lazy, cashOnly:S.cashOnly, nav:S.nav});
   S.news.push({t:S.t-1, items:news});
   S.lastMonth = {label:labelFor(S.t-1), you:S.nav/prevNav-1, spy:r, delta:T1-T0};
   S.f.maxLead = Math.max(S.f.maxLead, total()/Math.max(1,S.lazy)-1);
-  if(panicEv) evs.push(evPanic());
-  if(euphEv) evs.push(evEuph());
-  if(!panicEv && Math.abs(r) >= .06 && eqValue()/(total()||1) >= .1 && S.t - S.f.lastBigT >= 4){ S.f.lastBigT = S.t; evs.push(evBig(r)) }
+  // at most one market decision popup per month
+  const gap = S.t - S.f.lastPopT >= 3, mr = A('moon').ret[t], moon = A('moon');
+  let dec = null;
+  if(panicEv) dec = evPanic();
+  else if(S.life.find(e=>e.type==='rumor' && e.t===S.t) && !moon.delisted) dec = evRumor(S.life.find(e=>e.type==='rumor' && e.t===S.t));
+  else if(gap && !moon.delisted && Math.abs(mr) >= .3) dec = evMoon(mr);
+  else if(gap && Math.abs(r) >= .06 && S.t - S.f.lastBigT >= 4){ S.f.lastBigT = S.t; dec = evBig(r) }
+  else if(gap && S.t >= 12 && ret12('spy') >= .25 && !S.f.euphAsked){ S.f.euphAsked = true; dec = evEuph() }
+  else if(gap && c12 != null && c12 >= .07 && !S.f.infl){ S.f.infl = true; dec = evInflation(c12) }
+  else if(gap && br <= -.035 && !S.f.rate){ S.f.rate = true; dec = evRate(br) }
+  else if(gap && gr >= .1 && unlocked(A('gold')) && !S.f.goldRush){ S.f.goldRush = true; dec = evGold(gr) }
+  if(dec){ S.f.lastPopT = S.t; evs.push(dec) }
   if(S.t===3 && !S.auto) evs.push(evAuto());
   const unl = S.assets.filter(a=>a.unlockT===S.t && !a.delisted);
   if(unl.length) evs.push(evUnlock(unl));
@@ -785,11 +820,12 @@ function stepMonth(){
   return {cands, evs, news, r};
 }
 
-/* ---------- event cards ---------- */
+/* ---------- market events (popups) ---------- */
 const mkEv = o => ({choices:[], more:[], done:false, result:'', ...o});
 function welcomeEv(){
-  return mkEv({kind:'welcome', tag:'开局', title:'你有 1 万美元，和看不见的未来', body: isDesk() ? '在右边点 + 买入你想要的资产，或者先存着现金。准备好就按「下个月」。' : '去「投资」页点 + 买入，或者先存着现金。准备好就按「下个月」。每个月还会再存进 300 美元。'});
+  return mkEv({kind:'welcome', tag:'开局', title:'你有 1 万美元，和看不见的未来', body: isDesk() ? '在右边点 + 买入你想要的资产，或者先存着现金。准备好就按「下个月」，每个月还会再存进 300 美元。看到带虚线的词，点一下就有解释。' : '去「投资」页点 + 买入，或者先存着现金。准备好就按「下个月」，每个月还会再存进 300 美元。看到带虚线的词，点一下就有解释。'});
 }
+const share = () => shareAmt();
 function sellHalfEquity(){
   let sum = 0;
   for(const a of S.assets) if(EQUITY.has(a.group) && val(a.id)>1){ const r0 = doTrade(a.id,'sell',val(a.id)/2); if(r0) sum += r0.amt }
@@ -797,58 +833,103 @@ function sellHalfEquity(){
   if(ddOf(A('spy')) >= .15) queueCards([['panic']]);
   return sum ? `你卖出了 ${money(sum)} 的股票类资产，现金变成 ${money(S.cash)}。` : '你手上没有股票类资产可卖。';
 }
-function buySpyHalf(){
-  const res = userTrade('spy','buy',S.cash/2);
-  return res ? `你用 ${money(res.amt)} 买入了标普 500。` : '现金不够，没买成。';
+function buyShare(id, amt){
+  const res = userTrade(id, 'buy', Math.min(amt ?? share(), S.cash - Math.max(FEE_MIN, S.cash*FEE)));
+  return res ? `你买入了 ${money(res.amt)} 的${A(id).name}。` : '现金不够，没买成。';
 }
+function sellPart(id, frac){
+  const v = val(id); if(v < .5) return '你手上没有可以卖的。';
+  const res = userTrade(id, 'sell', frac >= 1 ? v : v*frac);
+  return res ? `你卖出了 ${money(res.amt)} 的${A(id).name}。` : '没卖成。';
+}
+const noEq = () => eqValue() < 1;
 function evBig(r){
-  return mkEv({kind:'big', tag:'大事', record:r>0?'大涨时刻':'大跌时刻', title: r>0 ? '股市大涨，要不要动一动？' : '股市大跌，你怎么办？',
+  return mkEv({tag:'市场大事', record:r>0?'大涨时刻':'大跌时刻', title: r>0 ? '股市大涨，要不要动一动？' : '股市大跌，你怎么办？',
     body:`标普 500 上个月${r>0?'涨':'跌'}了 ${pctP(Math.abs(r),1)}。你的股票类资产现在值 ${money(eqValue())}，现金 ${money(S.cash)}。`,
     choices:[
-      {label:'卖一半股票', sub: r>0?'先落袋为安':'先躲一躲', dir:'l', act:sellHalfEquity},
+      {label:'卖一半股票', sub: r>0?'先落袋为安':'先躲一躲', off:noEq(), act:sellHalfEquity},
       {label:'不动', sub:'按计划持有', act:()=>'你没有动，继续持有。'},
-      {label:'加仓标普', sub:`买入 ${money(S.cash/2)}`, dir:'r', off:S.cash<100, act:buySpyHalf},
+      {label:'加仓标普', sub:`买入 ${money(Math.min(S.cash/2, share()*2))}`, off:S.cash<100, act:()=>buyShare('spy', Math.min(S.cash/2, share()*2))},
     ]});
 }
 function evPanic(){
-  return mkEv({kind:'big', tag:'熊市', record:'熊市恐慌', title:'满屏都是“崩盘”',
-    body:`大盘已经从高点跌了 ${pctP(ddOf(A('spy')),0)}。新闻说这次可能比上次更糟，同事们都在清仓。你的股票类资产现在值 ${money(eqValue())}。`,
+  return mkEv({tag:'熊市来了', record:'熊市恐慌', title:'满屏都是“崩盘”',
+    body:`大盘已经从高点跌了 ${pctP(ddOf(A('spy')),0)}，正式进入熊市。新闻说这次可能比上次更糟，身边的人都在清仓。你的股票类资产现在值 ${money(eqValue())}。`,
     choices:[
-      {label:'卖一半股票', sub:'等稳定了再买回来', dir:'l', act:sellHalfEquity},
+      {label:'卖一半股票', sub:'等稳定了再买回来', off:noEq(), act:sellHalfEquity},
       {label:'按兵不动', sub:'按原计划持有', act:()=>'你按兵不动。熊市里最难的就是这个。'},
-      {label:'逆势加仓', sub:`买入 ${money(S.cash/2)}`, dir:'r', off:S.cash<100, act:buySpyHalf},
+      {label:'逆势加仓', sub:`买入 ${money(S.cash/2)}`, off:S.cash<100, act:()=>buyShare('spy', S.cash/2)},
     ]});
 }
 function evEuph(){
-  const amt = Math.min(2000, Math.floor(S.cash)), lev = A('lev');
-  return mkEv({kind:'big', tag:'诱惑', record:'牛市诱惑', title:'隔壁大叔发财了',
-    body:`大盘过去一年涨了 ${pctP(ret12('spy'),0)}。隔壁大叔说他买 3 倍杠杆 ETF，一年赚了 ${pctP(lev.hist.at(-1)/lev.hist.at(-13)-1,0)}，劝你也来一点。`,
+  const amt = Math.min(share()*2, Math.floor(S.cash)), lev = A('lev');
+  return mkEv({tag:'牛市诱惑', record:'牛市诱惑', title:'身边的人都在赚钱',
+    body:`大盘过去一年涨了 ${pctP(ret12('spy'),0)}。朋友说他买 3 倍杠杆 ETF，一年赚了 ${pctP(lev.hist.at(-1)/lev.hist.at(-13)-1,0)}，劝你也来一点。`,
     choices:[
-      {label:'算了', sub:'涨越猛越要小心', dir:'l', act:()=>'你没有跟风。'},
-      {label:'买 3 倍杠杆', sub:`买入 ${money(amt)}`, dir:'r', off:amt<50, act:()=>{ const r0 = doTrade('lev','buy',amt); queueCards([['lever']]); return r0 ? `你买入了 ${money(r0.amt)} 的 3 倍杠杆 ETF。它已经出现在你的「投资」列表里。` : '没买成。' }},
+      {label:'算了', sub:'涨越猛越要小心', act:()=>'你没有跟风。'},
+      {label:'买 3 倍杠杆', sub:`买入 ${money(amt)}`, off:amt<50, act:()=>{ const r0 = doTrade('lev','buy',amt); queueCards([['lever']]); return r0 ? `你买入了 ${money(r0.amt)} 的 3 倍杠杆 ETF，它已经出现在你的「投资」列表里。` : '没买成。' }},
     ]});
 }
 function evRumor(e){
   const a = A(e.stock); if(a.delisted) return null;
-  const amt = Math.min(3000, Math.floor(S.cash));
-  a.ret[S.t] = e.win ? .35 + Math.random()*.2 : -.15 - Math.random()*.15;
-  return mkEv({kind:'big', tag:'小道消息', title:'朋友神秘兮兮地说……',
-    body:`「我有内部消息，${a.name}下个月就要被大公司收购，股价肯定翻倍，赶紧买！」${a.name} 现价 ${px(a.price)}，你手上现金 ${money(S.cash)}。`,
+  const amt = Math.min(share()*2, Math.floor(S.cash));
+  a.ret[S.t] = e.win ? .35 + Math.random()*.3 : -.2 - Math.random()*.2;
+  return mkEv({tag:'小道消息', title:'群里有人发了一条“内幕”',
+    body:`「可靠消息，${a.name}下个月就要被大公司收购，股价肯定翻倍，赶紧上车！」${a.name} 现价 ${px(a.price)}，你手上现金 ${money(S.cash)}。`,
     choices:[
-      {label:'不理会', sub:'这种消息轮得到我？', dir:'l', act:()=>{ S.f.rumorRefused++; S.decisions.push({t:S.t, title:`朋友推荐 ${a.name}`, choice:'不理会', rumor:e}); return '你没有理会。下个月就知道他说得对不对。' }},
-      {label:'相信他', sub:`买入 ${money(amt)}`, dir:'r', off:amt<50, act:()=>{ const r0 = doTrade(a.id,'buy',amt); S.f.rumorTaken++; S.decisions.push({t:S.t, title:`朋友推荐 ${a.name}`, choice:`买入 ${money(r0?r0.amt:0)}`, rumor:e}); return `你买入了 ${money(r0?r0.amt:0)} 的${a.name}。下个月揭晓。` }},
+      {label:'不理会', sub:'这种消息轮得到我？', act:()=>{ S.f.rumorRefused++; S.decisions.push({t:S.t, title:`群里推荐 ${a.name}`, choice:'不理会', rumor:e}); return '你没有理会。下个月就知道消息是真是假。' }},
+      {label:'赌一把', sub:`买入 ${money(amt)}`, off:amt<50, act:()=>{ const r0 = doTrade(a.id,'buy',amt); S.f.rumorTaken++; S.decisions.push({t:S.t, title:`群里推荐 ${a.name}`, choice:`买入 ${money(r0?r0.amt:0)}`, rumor:e}); queueCards([['hype']]); return `你买入了 ${money(r0?r0.amt:0)} 的${a.name}。下个月揭晓。` }},
     ]});
 }
-function evExpense(e, forced){
-  return mkEv({kind:'life', tag:'生活事件', title:e.what, body:`需要马上付 ${money(e.amt)}。${forced ? '你的现金不够，系统按比例卖掉了部分投资来付款（含手续费）。' : '已经从现金里付清。'}老王和“全放现金”也付了同样的钱。`,
-    choices:[{label:'知道了', sub:forced?'下次多留点现金':'还好有现金', act:()=>forced?'被迫卖出投资的滋味不好受。':'还好手上有现金。'}]});
+function evMoon(mr){
+  const a = A('moon'), held = val('moon') > .5, up = mr > 0;
+  return mkEv({tag:'超级波动股', record: up ? `${a.name}暴涨` : `${a.name}暴跌`, title: up ? `${a.name}一个月暴涨 ${pctP(mr,0)}！` : `${a.name}一个月暴跌 ${pctP(-mr,0)}`,
+    body: up ? '网上都在晒收益截图，有人说还能再涨十倍。你心动吗？' : '论坛里有人喊“抄底”，也有人说它要归零了。',
+    choices: up ? [
+      {label:'追一份', sub:`买入 ${money(share())}`, off:S.cash<50, act:()=>{ queueCards([['hype']]); return buyShare('moon') }},
+      {label:'卖一半', sub:'落袋为安', off:!held, act:()=>sellPart('moon', .5)},
+      {label:'不动', sub:'冷静一下', act:()=>'你没有动。'},
+    ] : [
+      {label:'抄底一份', sub:`买入 ${money(share())}`, off:S.cash<50, act:()=>{ queueCards([['hype']]); return buyShare('moon') }},
+      {label:'全部卖掉', sub:'不玩了', off:!held, act:()=>sellPart('moon', 1)},
+      {label:'不动', sub:'再看看', act:()=>'你没有动。'},
+    ]});
+}
+function evInflation(c12){
+  const g = unlocked(A('gold'));
+  return mkEv({tag:'经济新闻', record:'物价飞涨', title:'物价飞涨，钱越来越不值钱',
+    body:`过去 12 个月物价涨了 ${pctP(c12,1)}。放在现金里的钱，购买力正在快速缩水。`,
+    choices:[
+      {label: g ? '买一份黄金' : '买一份标普', sub:`买入 ${money(share())}`, off:S.cash<50, act:()=>buyShare(g ? 'gold' : 'spy')},
+      {label:'不动', sub:'先观望', act:()=>'你没有动。'},
+    ]});
+}
+function evRate(br){
+  const held = val('bond') > .5;
+  return mkEv({tag:'债券新闻', record:'利率急升', title:'利率急升，国债大跌',
+    body:`国债上个月跌了 ${pctP(-br,1)}。利率上升时，新债券利息更高，旧债券就不值钱了。`,
+    choices:[
+      {label:'卖一半国债', sub:'避开下跌', off:!held, act:()=>sellPart('bond', .5)},
+      {label:'不动', sub:'利息照样收', act:()=>'你没有动。'},
+      {label:'买一份国债', sub:'利率高了，趁便宜买', off:S.cash<50, act:()=>buyShare('bond')},
+    ]});
+}
+function evGold(gr){
+  const held = val('gold') > .5;
+  return mkEv({tag:'黄金新闻', record:'金价飙升', title:`金价一个月涨了 ${pctP(gr,0)}`,
+    body:'避险情绪升温，大家都在抢黄金。要追吗？',
+    choices:[
+      {label:'追一份黄金', sub:`买入 ${money(share())}`, off:S.cash<50, act:()=>buyShare('gold')},
+      {label:'卖一半黄金', sub:'落袋为安', off:!held, act:()=>sellPart('gold', .5)},
+      {label:'不动', sub:'不追不卖', act:()=>'你没有动。'},
+    ]});
 }
 function evAuto(){
-  return mkEv({kind:'big', tag:'要不要试试', record:'定投邀请', title:'让工资自动投资？',
-    body:'每个月存下的钱，可以自动买进标普 500，不用每次自己操作。这就是老王的「定投」。以后在「投资」页也能随时关掉。',
+  return mkEv({tag:'要不要试试', record:'定投邀请', title:'让每月存的钱自动投资？',
+    body:'每个月存下的 300 美元，可以自动买进标普 500，不用每次自己操作。这就是老王的「定投」。以后在「投资」页也能随时关掉。',
     choices:[
-      {label:'先不用', sub:'我自己来', dir:'l', act:()=>'好，工资会先留在现金里。'},
-      {label:'开启定投', sub:'每月自动买标普 500', dir:'r', act:()=>{ S.auto = 'spy'; return '已开启。以后每月存的钱会自动买标普 500。' }},
+      {label:'先不用', sub:'我自己来', act:()=>'好，每月存的钱会先留在现金里。'},
+      {label:'开启定投', sub:'每月自动买标普 500', act:()=>{ S.auto = 'spy'; return '已开启。以后每月存的钱会自动买标普 500。' }},
     ]});
 }
 function evUnlock(list){
@@ -856,22 +937,32 @@ function evUnlock(list){
   return mkEv({kind:'unlock', tag:'新资产解锁', title: list.length===1 ? `解锁：${list[0].name}` : `解锁 ${list.length} 个新选择`,
     body: list.map(a=>`${a.name}：${a.desc}`).join('\n'),
     choices:[
-      {label:'知道了', dir:'l', act:()=>'之后在「投资」页可以买。'},
-      {label:'去看看', dir:'r', act:()=>{ if(S.evi >= S.evq.length-1) setTimeout(()=>{ setTab('invest'); renderBar() }, 250); return '之后在「投资」页可以买。' }},
+      {label:'知道了', act:()=>'之后在「投资」页可以买。'},
+      {label:'去看看', act:()=>{ S.goInvest = true; return '马上带你去「投资」页。' }},
     ]});
 }
 const curEv = () => S.evq[S.evi];
 const blocking = e => e.choices.length && !e.done;
-const canAdvance = () => !S.evq.some(blocking);
+let modalEv = null;
+function showEvent(ev){
+  modalEv = ev;
+  openModal(`<div class="eyebrow">${esc(ev.tag||'市场新闻')}</div><h3>${esc(ev.title)}</h3><p>${linkTerms(ev.body).replace(/\n/g,'<br>')}</p>
+    <div class="ev-choices" style="--n:${ev.choices.length}">${ev.choices.map((c,i)=>`<button data-ci="${i}" ${c.off?'disabled':''}><b>${esc(c.label)}</b>${c.sub?`<span>${esc(c.sub)}</span>`:''}</button>`).join('')}</div>`, {flip:true, dismiss:false});
+  $('#modal').querySelectorAll('[data-ci]').forEach(b=>b.onclick = ()=>choose(+b.dataset.ci));
+}
 function choose(ci){
-  const ev = curEv(); if(!ev || ev.done) return;
+  const ev = modalEv; if(!ev || ev.done) return;
   const c = ev.choices[ci]; if(!c || c.off) return;
   const txt = c.act ? c.act() : '';
-  ev.done = true; ev.result = txt || `你选择了「${c.label}」。`; ev.picked = ci;
+  ev.done = true; ev.result = txt || `你选择了「${c.label}」。`;
   if(ev.record) S.decisions.push({t:S.t, title:ev.record, choice:c.label});
-  flipNext = true;
   checkMissions();
-  renderAll();
+  const m = $('#modal');
+  m.innerHTML = `<div class="eyebrow">${esc(ev.tag||'市场新闻')}</div><h3>${esc(ev.title)}</h3><div class="ev-result"><b>你的选择：${esc(c.label)}</b>${esc(ev.result)}</div><div class="foot"><button class="btn primary" id="ev-ok">继续</button></div>`;
+  m.dataset.dismiss = '1';
+  $('#ev-ok').focus();
+  $('#ev-ok').onclick = ()=>{ modalEv = null; const go = S.goInvest; S.goInvest = false; closeModal(); if(go) setTab('invest') };
+  renderTop(); renderInvest();
 }
 
 /* ---------- missions ---------- */
@@ -918,7 +1009,7 @@ function queueCards(cands, max=2){
   }
   pump();
 }
-function pump(){ if(modalOpen || !queue.length) return; stopFF(); const q = queue.shift(); showCard(q.id, q.fresh) }
+function pump(){ if(modalOpen || !queue.length) return; stopFF(); const q = queue.shift(); if(q.ev) showEvent(q.ev); else showCard(q.id, q.fresh) }
 function openModal(html, {wide=false, flip=false, dismiss=true}={}){
   const ov = $('#overlay'), m = $('#modal');
   m.className = 'modal' + (wide?' wide':'') + (flip?' flip':'');
@@ -935,7 +1026,7 @@ function showCard(id, fresh){
   const q = c.quiz && fresh;
   let quiz = '';
   if(c.quiz) quiz = `<div class="quiz"><div class="q">小测验：${esc(c.quiz.q)}</div><div class="opts">${c.quiz.o.map((o,i)=>`<button data-qi="${i}">${esc(o)}</button>`).join('')}</div><div class="ex" id="qex" hidden></div></div>`;
-  openModal(`<button class="x" aria-label="关闭">×</button><div class="eyebrow">${fresh?'新知识卡':'知识卡'} · ${String(c.n).padStart(2,'0')} / ${CARDS.length}</div><h3>${esc(c.t)}</h3><p>${esc(body)}</p>${quiz}<div class="foot"><button class="btn primary" id="card-ok" ${q?'disabled':''}>${q?'先答题':'知道了，继续'}</button></div>`, {flip:true, dismiss:!q});
+  openModal(`<button class="x" aria-label="关闭">×</button><div class="eyebrow">${fresh?'新知识卡':'知识卡'} · ${String(c.n).padStart(2,'0')} / ${CARDS.length}</div><h3>${esc(c.t)}</h3><p>${linkTerms(body)}</p>${quiz}<div class="foot"><button class="btn primary" id="card-ok" ${q?'disabled':''}>${q?'先答题':'知道了，继续'}</button></div>`, {flip:true, dismiss:!q});
   const m = $('#modal');
   m.querySelector('.x').onclick = ()=>{ if(!q || m.dataset.dismiss) closeModal() };
   $('#card-ok').onclick = closeModal;
@@ -943,7 +1034,7 @@ function showCard(id, fresh){
     const i = +b.dataset.qi, ok = i===c.quiz.a;
     m.querySelectorAll('[data-qi]').forEach(x=>{ x.disabled = true; if(+x.dataset.qi===c.quiz.a) x.classList.add('right') });
     if(!ok) b.classList.add('wrong');
-    const ex = $('#qex'); ex.hidden = false; ex.innerHTML = `<strong class="${ok?'up':'down'}">${ok?'答对了！':'差一点。'}</strong> ${esc(c.quiz.ex)}`;
+    const ex = $('#qex'); ex.hidden = false; ex.innerHTML = `<strong class="${ok?'up':'down'}">${ok?'答对了！':'差一点。'}</strong> ${linkTerms(c.quiz.ex)}`;
     if(fresh){ S.quiz.total++; if(ok) S.quiz.right++; checkMissions() }
     const btn = $('#card-ok'); btn.disabled = false; btn.textContent = '知道了，继续'; m.dataset.dismiss = '1'; btn.focus();
   });
@@ -959,12 +1050,12 @@ function openTrade(id, side){
   const r1 = S.t>0 ? a.ret[S.t-1] : null;
   openModal(`<button class="x" aria-label="关闭">×</button>
     <div class="trade-head"><div>
-      <div class="eyebrow" style="color:var(--muted)">${a.group==='stock'?'个股 · '+esc(a.sector):'基金 / ETF'} · <span class="tag ${a.real?'real':''}" style="font-family:var(--sans)">${esc(a.group==='stock'?'模拟':a.tag)}</span></div>
+      <div class="eyebrow" style="color:var(--muted)">${a.group==='stock'?'超级波动股':'基金 / ETF'} · <span class="tag ${a.real?'real':''}" style="font-family:var(--sans)">${esc(a.group==='stock'?'模拟':a.tag)}</span></div>
       <h3 style="margin-bottom:2px">${esc(a.name)}</h3>
-      <div class="muted" style="font-size:14px">${esc(a.desc)}</div>
-    </div><div style="text-align:right;flex:none"><div class="trade-px">${px(a.price)}</div><div class="trade-sub">上月 <span class="${cls(r1)}">${r1==null?'—':pct(r1)}</span><br>近一年 <span class="${cls(ret12(id))}">${pct(ret12(id))}</span></div></div></div>
+      <div class="muted" style="font-size:14px">${linkTerms(a.desc)}</div>
+    </div><div style="text-align:right;flex:none"><div class="trade-px">${px(a.price)}</div><div class="trade-sub">上个月 <span class="${cls(r1)}">${r1==null?'—':pct(r1)}</span><br>过去一年 <span class="${cls(ret12(id))}">${pct(ret12(id))}</span></div></div></div>
     <div class="mini">${miniChart(a)}</div>
-    <div class="poscard"><div><span>持有市值</span><b>${money(v)}</b></div><div><span>持有股数</span><b>${held?(h.sh).toFixed(h.sh<10?2:1):'0'}</b></div><div><span>成本</span><b>${held?money(h.cost):'—'}</b></div><div><span>浮动盈亏</span><b class="${cls(pl)}">${pl==null?'—':pct(pl)}</b></div></div>
+    <div class="poscard"><div><span>现在值（${term('mv','市值')}）</span><b>${money(v)}</b></div><div><span>持有几股</span><b>${held?(h.sh).toFixed(h.sh<10?2:1):'0'}</b></div><div><span>当初花了（${term('cost','成本')}）</span><b>${held?money(h.cost):'—'}</b></div><div><span>赚了还是亏了（${term('pl','浮动盈亏')}）</span><b class="${cls(pl)}">${pl==null?'—':pct(pl)}</b></div></div>
     <div class="side-tabs"><button class="buy" id="sd-buy" aria-pressed="${side==='buy'}">买入</button><button class="sell" id="sd-sell" aria-pressed="${side==='sell'}" ${held?'':'disabled'}>卖出</button></div>
     <div class="amt"><label for="amt">金额 $</label><input id="amt" type="number" inputmode="decimal" min="0" step="100"></div>
     <div class="qchips" id="qc"></div>
@@ -1039,16 +1130,24 @@ function quickSell(id){
 function annual(g){ return Math.pow(Math.max(g,1e-9), 12/S.len) - 1 }
 function maxDD(arr){ let pk=-Infinity, dd=0; for(const v of arr){ pk=Math.max(pk,v); dd=Math.max(dd,1-v/pk) } return dd }
 function cashIndex(){ let g = 1; for(let t=0;t<S.len;t++) g *= 1 + DATA.c[S.s0+t]; return g }
+function irrAnnual(terminal){
+  const f = S.flows, n = S.len;
+  const npv = r => { let v = 0, d = 1; for(let t=0;t<=n;t++){ v -= (f[t]||0)/d; d *= 1+r } return v + terminal/Math.pow(1+r,n) };
+  let lo = -0.5, hi = 0.5;
+  for(let i=0;i<80;i++){ const mid = (lo+hi)/2; if(npv(mid) > 0) lo = mid; else hi = mid }
+  return Math.pow(1+(lo+hi)/2, 12) - 1;
+}
 function results(){
-  const you = annual(S.nav), lazy = annual(A('spy').price/100), cashA = annual(cashIndex());
+  const mw = !!S.flows;
+  const you = mw ? irrAnnual(total()) : annual(S.nav), lazy = mw ? irrAnnual(S.lazy) : annual(A('spy').price/100), cashA = mw ? irrAnnual(S.cashOnly) : annual(cashIndex());
   const diff = you - lazy;
-  const grade = diff >= .02 ? 'S' : diff >= 0 ? 'A' : diff >= -.015 ? 'B' : diff >= -.04 ? 'C' : 'D';
+  const grade = diff >= .02 ? 'S' : diff >= -.0005 ? 'A' : diff >= -.015 ? 'B' : diff >= -.04 ? 'C' : 'D';
   return {you, lazy, cashA, diff, grade};
 }
 function finishGame(){
   checkMissions(true);
   const R = results(), got = new Set();
-  if(R.diff >= 0) got.add('beat');
+  if(R.diff >= .0005) got.add('beat');
   if(R.grade==='S') got.add('sgrade');
   if(S.f.bear && S.f.eqAtBear >= .5 && !S.f.soldInBear) got.add('diamond');
   if(S.f.dipBuy) got.add('dipbuy');
@@ -1082,8 +1181,8 @@ function shareCardHTML(){
   const badges = [...S.mdone.map(id=>MISSIONS.find(x=>x.id===id).t), ...S.achNew.map(id=>'成就：'+ACHS.find(x=>x.id===id).t)];
   return `<div class="sharecard">
     <div class="sc-top"><span class="sc-brand">十年盲投</span><span>${esc(m.name)}</span></div>
-    <div class="sc-row"><div class="sc-grade">${R.grade}</div><div class="sc-head">${R.diff>=0?'我跑赢了老王':'我输给了老王'}<small>每年${R.diff>=0?'多赚':'少赚'} ${pctP(Math.abs(R.diff),1)} · ${y0}.${m0} — ${y1}.${m1}</small></div></div>
-    <div class="sc-cmp"><div>我的年化<b class="${cls(R.you)}">${pct(R.you)}</b></div><div>老王的年化<b>${pct(R.lazy)}</b></div></div>
+    <div class="sc-row"><div class="sc-grade term" data-term="grade" role="button" tabindex="0" style="border-bottom:0">${R.grade}</div><div class="sc-head">${Math.abs(R.diff)<.0005?'我和老王打平':R.diff>=0?'我跑赢了老王':'我输给了老王'}<small>每年${R.diff>=0?'多赚':'少赚'} ${pctP(Math.abs(R.diff),1)} · ${y0}.${m0} — ${y1}.${m1}</small></div></div>
+    <div class="sc-cmp"><div>我平均每年赚（${term('annual','年化')}）<b class="${cls(R.you)}">${pct(R.you)}</b></div><div>老王平均每年赚<b>${pct(R.lazy)}</b></div></div>
     ${evs.length?`<div class="sc-events">${evs.map(e=>`<span>${e[0]===e[1]?e[0]:e[0]+'–'+e[1]} ${esc(e[2])}</span>`).join('')}</div>`:''}
     ${dec.length?`<ul class="sc-list">${dec.map(d=>`<li>${esc(d.title)}：${esc(d.choice)}${d.outcome?`（${esc(d.outcome)}）`:''}</li>`).join('')}</ul>`:''}
     ${badges.length?`<div class="sc-badges">${badges.map(b=>`<span>${esc(b)}</span>`).join('')}</div>`:''}
@@ -1095,26 +1194,24 @@ function reportHTML(){
   const R = S.result, m = MODES[S.mode], [y0,m0] = realYM(S.s0), [y1,m1] = realYM(S.s0+S.len-1);
   const evs = periodEvents();
   const rows = [
-    {n:'我', end:total(), g:S.nav, dd:maxDD(S.hist.map(h=>h.nav)), tr:S.trades, fee:S.fees, me:true},
-    {n:'老王（全买标普 500）', end:S.lazy, g:A('spy').price/100, dd:maxDD(A('spy').hist), tr:0, fee:0},
-    {n:'全放现金', end:S.cashOnly, g:cashIndex(), dd:0, tr:0, fee:0},
+    {n:'我', end:total(), a:R.you, dd:maxDD(S.hist.map(h=>h.nav)), tr:S.trades, fee:S.fees, me:true},
+    {n:'老王（全买标普 500）', end:S.lazy, a:R.lazy, dd:maxDD(A('spy').hist), tr:0, fee:0},
+    {n:'全放现金', end:S.cashOnly, a:R.cashA, dd:0, tr:0, fee:0},
   ];
-  const stocks = S.assets.filter(a=>a.group==='stock');
   const verdict = R.diff >= 0
     ? `你赢了老王，每年多赚 ${pctP(R.diff,1)}。先别急着得意：同样的做法换一个十年还灵不灵？多玩几局看看，是方法有效还是这次运气好。`
     : `你每年比老王少赚 ${pctP(-R.diff,1)}。别灰心，这是最常见的结果：现实中大多数主动操作的人，长期都跑不赢买了就不动的指数基金。`;
   return `<div class="rep"><button class="x" aria-label="关闭">×</button><div class="grade">${R.grade}</div>
     <div class="eyebrow">成绩单 · ${esc(m.name)}</div>
     <h3>${y0} 年 ${m0} 月 — ${y1} 年 ${m1} 月</h3>
+    <p class="muted" style="font-size:13px">${GLOSS.grade.d}</p>
     ${evs.length?`<div class="events">${evs.map(e=>`<span>${e[0]===e[1]?e[0]:e[0]+'–'+e[1]}　${esc(e[2])}</span>`).join('')}</div>`:''}
-    <div class="tbl"><table><thead><tr><th>玩法</th><th>最终资产</th><th>扣通胀后</th><th>年化收益</th><th>最大回撤</th><th>主动交易</th><th>手续费</th></tr></thead>
-    <tbody>${rows.map(r=>`<tr class="${r.me?'me':''}"><td class="t">${r.n}</td><td>${money(r.end)}</td><td>${money(r.end/S.cpi)}</td><td>${pct(annual(r.g))}</td><td>${r.dd?'−'+pctP(r.dd,0):'0%'}</td><td>${r.tr}</td><td>${money(r.fee)}</td></tr>`).join('')}</tbody></table></div>
-    <p>累计投入本金 ${money(S.contributed)}（工资和年终奖，未扣生活支出），这段时间物价涨了 ${pctP(S.cpi-1,0)}。年化收益和最大回撤已扣除存钱和支出的影响，只看投资本身。${verdict}</p>
-    <h4>这些个股其实是……</h4>
-    <div class="tbl"><table><thead><tr><th>公司</th><th>行业</th><th>真实身份</th><th>整局涨跌</th><th>你在它身上</th></tr></thead>
-    <tbody>${stocks.map(a=>{const h=S.hold[a.id], ar=ARCH.find(x=>x.k===a.arch), pnl = h&&h.traded ? h.realized + val(a.id) - h.cost : null;
-      return `<tr><td class="t">${esc(a.name)}</td><td class="t">${esc(a.sector)}</td><td class="t">${esc(ar.label)}</td><td class="${a.delisted?'down':cls(a.price/a.p0-1)}">${a.delisted?'退市归零':pct(a.price/a.p0-1,0)}</td><td class="${cls(pnl)}">${pnl==null?'没碰过':(pnl>=0?'赚 ':'亏 ')+money(Math.abs(pnl))}</td></tr>`}).join('')}</tbody></table></div>
-    <p class="muted" style="font-size:13px">${ARCH.filter(ar=>stocks.some(s=>s.arch===ar.k)).map(ar=>`${ar.label}：${ar.text}`).join(' ')}</p>
+    <div class="tbl"><table><thead><tr><th>玩法</th><th>最后有多少钱</th><th>${term('real','扣通胀后')}</th><th>平均每年赚（${term('annual','年化')}）</th><th>最惨时跌了（${term('dd','回撤')}）</th><th>自己买卖几次</th><th>${term('fee','手续费')}</th></tr></thead>
+    <tbody>${rows.map(r=>`<tr class="${r.me?'me':''}"><td class="t">${r.n}</td><td>${money(r.end)}</td><td>${money(r.end/S.cpi)}</td><td>${pct(r.a)}</td><td>${r.dd?'−'+pctP(r.dd,0):'0%'}</td><td>${r.tr}</td><td>${money(r.fee)}</td></tr>`).join('')}</tbody></table></div>
+    <p>累计存进去 ${money(S.contributed)}，这段时间物价涨了 ${pctP(S.cpi-1,0)}。“平均每年赚”把你每个月存进去的每一笔钱都算进去；三种玩法存钱的时间完全一样，所以谁最后钱多，谁的这个数字就高。“最惨时跌了”只看投资本身，不受存钱影响。${verdict}</p>
+    <h4>超级波动股的真实命运</h4>
+    ${(()=>{ const a = A('moon'), h = S.hold.moon, fate = MOON_FATE[a.arch], pnl = h&&h.traded ? h.realized + val('moon') - h.cost : null;
+      return `<p><strong>${esc(a.name)}：${esc(fate.label)}</strong>（整局 ${a.delisted?'退市归零':pct(a.price/a.p0-1,0)}；你在它身上${pnl==null?'没碰过':(pnl>=0?'赚了 ':'亏了 ')+money(Math.abs(pnl))}）。${esc(fate.text)}</p>` })()}
     ${S.decisions.length?`<h4>你的关键决定</h4><ul class="sc-list" style="font-size:14px">${S.decisions.map(d=>`<li>${esc(labelFor(d.t))} · ${esc(d.title)}：<strong>${esc(d.choice)}</strong>${d.outcome?`（结果：${esc(d.outcome)}）`:''}</li>`).join('')}</ul>`:''}
     <h4>本局任务和成就</h4>
     <div class="achs">${S.missions.map(id=>`<span class="ach ${S.mdone.includes(id)?'new':''}">${S.mdone.includes(id)?'✓ ':'✗ '}${esc(MISSIONS.find(x=>x.id===id).t)}</span>`).join('')}${S.achGot.map(a=>`<span class="ach ${S.achNew.includes(a)?'new':''}">${esc(ACHS.find(x=>x.id===a).t)}</span>`).join('')}</div>
@@ -1146,40 +1243,35 @@ function showStart(){
 /* ---------- time controls ---------- */
 function stopFF(){ if(ffTimer){ clearInterval(ffTimer); ffTimer = null; renderBar() } }
 function nextMonth(){
-  if(!S || S.ended || modalOpen) return true;
-  if(!canAdvance()){ S.evi = S.evq.findIndex(blocking); renderMonth(); return true }
-  const prevNav = S.nav;
+  if(!S || S.ended || modalOpen || queue.length) return true;
   const res = stepMonth();
   const news = res.news.slice().sort((a,b)=>(b.pri||0)-(a.pri||0));
   const top = news[0];
-  const summary = `我 ${pct(S.lastMonth.you)} · 老王 ${pct(res.r)}`;
-  const newsEv = mkEv({kind:'news', tag:'上个月', title:top.text, r:top.r, tone:top.tone, sub:summary});
-  const evs = res.evs;
-  evs.forEach(e=>{ e.head = top; e.sub = summary });
-  S.evq = S.ended ? [] : (evs.length ? evs : [newsEv]);
-  S.evq.forEach(e=>{ e.more = news.slice(evs.length ? 0 : 1) });
+  const summary = `上个月 我 ${pct(S.lastMonth.you)} · 老王 ${pct(res.r)}`;
+  S.evq = S.ended ? [] : [mkEv({kind:'news', tag:'上个月', title:top.text, r:top.r, tone:top.tone, sub:summary, more:news.slice(1)})];
   S.evi = 0;
   const lead = total()/Math.max(1,S.lazy)-1;
   S.lw = pick(res.r <= -.06 ? LW.crash : res.r >= .06 ? LW.boom : lead < -.05 ? LW.behind : lead > .05 ? LW.ahead : LW.calm);
   checkMissions();
   if(res.r <= -.08 && !RM){ const c = $('#content'); c.classList.remove('shake'); void c.offsetWidth; c.classList.add('shake') }
   if(S.nav >= Math.max(...S.hist.map(h=>h.nav)) && S.nav >= S.f.lastConfNav*1.1){ S.f.lastConfNav = S.nav; confetti() }
+  if(!S.ended) for(const ev of res.evs) queue.push({ev});
   queueCards(res.cands, 2);
   renderAll();
   if(S.ended) finishGame();
-  return !canAdvance() || queue.length>0 || modalOpen || S.ended || evs.some(e=>e.kind==='unlock');
+  return queue.length>0 || modalOpen || S.ended;
 }
 function skipToEvent(){
   if(ffTimer){ stopFF(); return }
   let left = 12;
   ffTimer = setInterval(()=>{
-    if(modalOpen || !S || S.ended || left<=0 || !canAdvance()){ stopFF(); return }
+    if(modalOpen || !S || S.ended || left<=0){ stopFF(); return }
     left--; const stop = nextMonth();
     if(stop || left<=0) stopFF();
   }, 150);
   renderBar();
 }
-$('#next').onclick = ()=>{ if(S.ended){ showStart(); return } stopFF(); const ev = curEv(); if(ev && blocking(ev) && tab!=='month'){ setTab('month'); renderBar(); return } nextMonth() };
+$('#next').onclick = ()=>{ if(S.ended){ showStart(); return } stopFF(); nextMonth() };
 $('#skip').onclick = skipToEvent;
 
 /* ---------- toasts / effects ---------- */
@@ -1250,7 +1342,7 @@ function renderMonth(){
   let h = `<div class="ev-top"><span class="ev-tag">${esc(tagTxt)}${n>1?` · ${S.evi+1}/${n}`:''}</span>${ev.sub?`<span class="ev-count">${esc(ev.sub)}</span>`:''}</div>`;
   if(ev.head && ev.kind!=='news' && ev.kind!=='big') h += `<div class="ev-head">上个月：${esc(ev.head.text)}${ev.head.r!=null?` <span class="mono ${cls(ev.head.r)}">${pct(ev.head.r)}</span>`:''}</div>`;
   h += `<h2 class="ev-title">${esc(ev.title)}${ev.r!=null?` <span class="mono ${cls(ev.r)}">${pct(ev.r)}</span>`:''}</h2>`;
-  if(ev.body) h += `<p class="ev-body">${esc(ev.body).replace(/\n/g,'<br>')}</p>`;
+  if(ev.body) h += `<p class="ev-body">${linkTerms(ev.body).replace(/\n/g,'<br>')}</p>`;
   if(ev.done){
     h += `<div class="ev-result"><b>你的选择：${esc(ev.choices[ev.picked].label)}</b>${esc(ev.result)}</div>`;
     if(S.evi < n-1) h += `<button class="btn ev-cont" id="ev-cont">下一张 →</button>`;
@@ -1288,11 +1380,12 @@ function renderInvest(){
   const list = S.assets.filter(a=>unlocked(a) && !(a.delisted && val(a.id)<.5));
   $('#alist').innerHTML = list.map(a=>{
     const v = val(a.id), h = S.hold[a.id], r1 = S.t>0 ? a.ret[S.t-1] : null, fresh = a.unlockT===S.t && S.t>0;
-    const tag = a.group==='stock' ? `<span class="tag">${esc(a.sector)}</span>` : `<span class="tag ${a.real?'real':''}">${esc(a.tag)}</span>`;
+    const tag = a.group==='stock' ? `<span class="tag hot">超级波动</span>` : `<span class="tag ${a.real?'real':''}">${esc(a.tag)}</span>`;
     return `<div class="arow" data-id="${a.id}">
       <button class="a-info" data-open="${a.id}" aria-label="${esc(a.name)} 详情"><span class="a-nm"><i class="sw" style="background:var(${gc(a.group)})"></i>${esc(a.name)} ${tag}${fresh?'<span class="tag new">新</span>':''}</span>
-      <span class="a-sub">${px(a.price)} · 上月 <span class="${cls(r1)}">${r1==null?'—':pct(r1)}</span></span>
-      <span class="a-hold">${v>.5?`持有 <span class="mono">${money(v)}</span> · <span class="mono ${cls(v/h.cost-1)}">${pct(v/h.cost-1)}</span>`:'还没买'}</span></button>
+      <span class="a-desc">${linkTerms(a.desc,2)}</span>
+      <span class="a-sub">${px(a.price)} · 上个月 <span class="${cls(r1)}">${r1==null?'—':pct(r1)}</span></span>
+      ${v>.5?`<span class="a-hold">持有 <span class="mono">${money(v)}</span> · <span class="mono ${cls(v/h.cost-1)}">${pct(v/h.cost-1)}</span></span>`:''}</button>
       <div class="a-btns"><button class="pm minus" data-minus="${a.id}" aria-label="卖出一份 ${esc(a.name)}" ${v<.5||S.ended?'disabled':''}>−</button><button class="pm plus" data-plus="${a.id}" aria-label="买入一份 ${esc(a.name)}" ${S.cash<2||S.ended?'disabled':''}>+</button></div>
     </div>`;
   }).join('');
@@ -1347,7 +1440,7 @@ function renderChart(){
   const hit = svg.querySelector('#hit');
   hit.addEventListener('pointermove', move); hit.addEventListener('pointerdown', move);
   hit.addEventListener('pointerleave', ()=>{ hover.style.display = 'none'; tip.hidden = true });
-  $('#kv').innerHTML = [['全放现金', money(S.cashOnly)], ['扣通胀后的现金', money(S.cashOnly/S.cpi)], ['累计投入本金', money(S.contributed)], ['手续费', money(S.fees)]].map(([k,v])=>`<div><span>${k}</span><b>${v}</b></div>`).join('');
+  $('#kv').innerHTML = [['全放现金', money(S.cashOnly)], [term('real','扣通胀后')+'的现金', money(S.cashOnly/S.cpi)], ['一共存进去的钱', money(S.contributed)], ['付掉的'+term('fee','手续费'), money(S.fees)]].map(([k,v])=>`<div><span>${k}</span><b>${v}</b></div>`).join('');
   const older = S.news.slice(-8).reverse();
   $('#older').hidden = !older.length;
   $('#older-list').innerHTML = older.map(o=>`<li><b>${esc(labelFor(o.t))}</b>${o.items.map(n=>esc(n.text)+(n.r!=null?` ${pct(n.r)}`:'')).join('；')}</li>`).join('');
@@ -1361,6 +1454,7 @@ function niceTicks(lo, hi, n){
   return out;
 }
 function albumHTML(){
+  if(albumTab==='gloss') return `<div class="gloss">${Object.values(GLOSS).map(g=>`<div><b>${esc(g.t)}</b>${esc(g.d)}${g.e?`<small>${esc(g.e)}</small>`:''}</div>`).join('')}</div>`;
   return albumTab==='cards'
     ? CARDS.map((c,i)=>{const got = META.cards.includes(c.id), now = S.seen.includes(c.id); return `<button class="cg ${got?'got':''} ${now?'new':''}" data-card="${c.id}" ${got?'':'disabled'}><span class="n">${String(i+1).padStart(2,'0')}${now?' · 本局':''}</span><span class="t">${got?esc(c.t):'？？？'}</span></button>`}).join('')
     : ACHS.map(a=>{const got = META.ach.includes(a.id); return `<div class="cg ${got?'got':''}"><span class="n">${got?'已解锁':'未解锁'}</span><span class="t">${esc(a.t)}</span><span class="muted" style="font-size:12px;line-height:1.4">${esc(a.d)}</span></div>`}).join('');
@@ -1372,9 +1466,10 @@ function renderAlbum(el){
   document.querySelectorAll('.al-ach-n').forEach(x=>x.textContent = `${META.ach.length}/${ACHS.length}`);
   document.querySelectorAll('.al-cards').forEach(x=>x.setAttribute('aria-selected', albumTab==='cards'));
   document.querySelectorAll('.al-ach').forEach(x=>x.setAttribute('aria-selected', albumTab==='ach'));
+  document.querySelectorAll('.al-gloss').forEach(x=>x.setAttribute('aria-selected', albumTab==='gloss'));
 }
 function showAlbumModal(){
-  openModal(`<button class="x" aria-label="关闭">×</button><div class="eyebrow">图鉴</div><h3>知识卡和成就</h3><div class="mtabs" role="tablist" style="margin-bottom:12px"><button class="mtab al-cards" role="tab">知识卡 <span class="mono al-cards-n"></span></button><button class="mtab al-ach" role="tab">成就 <span class="mono al-ach-n"></span></button></div><div class="cardgrid" id="album-m"></div>`, {wide:true});
+  openModal(`<button class="x" aria-label="关闭">×</button><div class="eyebrow">图鉴</div><h3>知识卡、成就和词典</h3><div class="mtabs" role="tablist" style="margin-bottom:12px"><button class="mtab al-cards" role="tab">知识卡 <span class="mono al-cards-n"></span></button><button class="mtab al-ach" role="tab">成就 <span class="mono al-ach-n"></span></button><button class="mtab al-gloss" role="tab">新手词典</button></div><div class="cardgrid" id="album-m"></div>`, {wide:true});
   $('#modal .x').onclick = closeModal;
   renderAlbum($('#album-m'));
 }
@@ -1382,11 +1477,8 @@ function renderBar(){
   if(!S) return;
   const next = $('#next'), skip = $('#skip');
   if(S.ended){ next.textContent = '再玩一局'; next.disabled = false; skip.disabled = true; $('#skip-t').textContent = '跳到下一件大事'; return }
-  const ev = curEv();
-  if(ev && blocking(ev)){ const away = !isDesk() && tab!=='month'; next.textContent = away ? '有事等你决定 →' : '先做个决定'; next.disabled = !away }
-  else if(!canAdvance()){ next.textContent = '还有一张卡 →'; next.disabled = false }
-  else { next.textContent = '下个月 →'; next.disabled = modalOpen }
-  skip.disabled = !canAdvance() || modalOpen;
+  next.textContent = '下个月 →'; next.disabled = modalOpen;
+  skip.disabled = modalOpen && !ffTimer;
   $('#skip-t').textContent = ffTimer ? '停止' : '跳到下一件大事';
 }
 function renderAll(){
@@ -1402,7 +1494,7 @@ function renderAll(){
   const card = $('#evcard');
   let sx = null, dx = 0, id = null;
   card.addEventListener('pointerdown', e=>{
-    if(card.dataset.swipe !== '1' || e.target.closest('button,summary,details')) return;
+    if(card.dataset.swipe !== '1' || e.target.closest('button,summary,details,.term')) return;
     sx = e.clientX; dx = 0; id = e.pointerId; card.setPointerCapture(id); card.style.transition = 'none';
   });
   card.addEventListener('pointermove', e=>{
@@ -1456,14 +1548,16 @@ document.addEventListener('click', e=>{
   const c = e.target.closest('button[data-card]'); if(c && !c.disabled){ showCard(c.dataset.card, false); return }
   const ac = e.target.closest('.al-cards'); if(ac){ albumTab = 'cards'; renderAlbum($('#album-m') || $('#album')); return }
   const aa = e.target.closest('.al-ach'); if(aa){ albumTab = 'ach'; renderAlbum($('#album-m') || $('#album')); return }
+  const ag = e.target.closest('.al-gloss'); if(ag){ albumTab = 'gloss'; renderAlbum($('#album-m') || $('#album')); return }
 });
 $('#btn-album').onclick = showAlbumModal;
 $('#auto-t').addEventListener('change', e=>{ S.auto = e.target.checked ? 'spy' : ''; if(!S.auto) S.f.autoStreak = 0; toast(S.auto ? '已开启：每月工资自动买标普 500' : '已关闭自动买入'); renderAll() });
 document.addEventListener('keydown', e=>{
   if(e.key==='Escape' && modalOpen && $('#modal').dataset.dismiss){ closeModal(); return }
+  if(modalOpen && modalEv && !modalEv.done && ['1','2','3'].includes(e.key)){ choose(+e.key-1); return }
   if(modalOpen || !S || e.target.closest('input,select,textarea')) return;
   if(e.key==='ArrowRight'){ e.preventDefault(); if(S.ended) return; stopFF(); nextMonth() }
-  if(['1','2','3'].includes(e.key)){ const ev = curEv(); if(ev && !ev.done) choose(+e.key-1) }
+
 });
 let rz; window.addEventListener('resize', ()=>{ clearTimeout(rz); rz = setTimeout(()=>{ if(isDesk() && tab==='album') setTab('month'); renderChart(); if(coachI>=0) showCoach() }, 120) });
 
